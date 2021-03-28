@@ -1,6 +1,3 @@
-import out.production.ColorPrinter.ANSI_COLOR;
-import out.production.ColorPrinter.ColorPrinter;
-
 public class TestPrinter {
     public static void main(String[] args) {
         ColorPrinter debug = new ColorPrinter();
@@ -13,7 +10,7 @@ public class TestPrinter {
         debug.setTextColor(ANSI_COLOR.BLUE);
         debug.setBackgroundColor(ANSI_COLOR.RED);
 
-        debug.printf("This is a %s. I have %d tests to run.\n", "Test", 19999);
+        debug.printf("This is a %s. I have %.8f tests to run.\n", "Test", 19999f);
 
         debug.println("println test");
 
