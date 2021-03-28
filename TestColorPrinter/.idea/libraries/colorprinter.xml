@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="colorprinter">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/colorprinter.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
