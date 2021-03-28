@@ -16,8 +16,6 @@ public class TestPrinter {
 
         debug.print("TEST PRINT");
         debug.print(" ON THE SAME LINE.");
-
-        ColorPrinter.clearConsole();
     }
 }
 

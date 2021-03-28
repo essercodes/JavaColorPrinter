@@ -16,4 +16,4 @@ ANSI_COLOR.class: src/ANSI_COLOR.java
 TestPrinter.class: src/TestPrinter.java ColorPrinter.class
 	javac -cp src \
 		  src/TestPrinter.java \
- 	  	  -d out/production/TestColorPrinter/
+ 	  	  -d out/production/ColorPrinter/
