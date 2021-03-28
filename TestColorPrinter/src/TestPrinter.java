@@ -1,5 +1,5 @@
-import out.production.ColorPrinter.ANSI_COLOR;
-import out.production.ColorPrinter.ColorPrinter;
+import ghost.coffee.ColorPrinter.*;
+import static ghost.coffee.ColorPrinter.ANSI_COLOR.*;
 
 public class TestPrinter {
     public static void main(String[] args) {
@@ -7,11 +7,12 @@ public class TestPrinter {
 
         ColorPrinter.clearConsole();
 
+//        System.out.println(BLUE);
         debug.negative(true);
         debug.bold(true);
         debug.blink(true);
-        debug.setTextColor(ANSI_COLOR.BLUE);
-        debug.setBackgroundColor(ANSI_COLOR.RED);
+        debug.setTextColor(BLUE);
+        debug.setBackgroundColor(RED);
 
         debug.printf("This is a %s. I have %d tests to run.\n", "Test", 19999);
 

@@ -1,3 +1,5 @@
+package ghost.coffee.ColorPrinter;
+
 /**
  * Color enum is the list of 8 bit colors available ANSI codes for ColorPrinter.java
  *

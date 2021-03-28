@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: ghost/coffee/ColorPrinter
+Created-By: 15 (Private Build)
+

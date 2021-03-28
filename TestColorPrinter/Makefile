@@ -1,13 +1,17 @@
 default: run
 
-run: TestPrinter.class
-	java out/production/TestColorPrinter TestPrinter
+run: compile
+	java -cp out/production/TestColorPrinter:colorprinter.jar TestPrinter
+
+compile: TestPrinter.class
 
 clean:
 	$(RM) out/production/TestColorPrinter/*.class
+	$(RM) colorprinter.jar
 
 TestPrinter.class: src/TestPrinter.java ../colorprinter.jar
+	cd .. && $(MAKE) jar
 	cp ../colorprinter.jar .
-	javac -verbose -cp colorprinter.jar \
+	javac -cp colorprinter.jar \
 		  src/TestPrinter.java \
  	  	  -d out/production/TestColorPrinter/
