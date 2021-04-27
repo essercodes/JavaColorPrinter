@@ -1,3 +1,5 @@
+package ghost.coffee.ColorPrinter;
+
 /**
  * ColorPrinter is a class that formats output with things like bold, italics, underline, color,
  * and background color.

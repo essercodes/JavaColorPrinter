@@ -1,14 +1,19 @@
+import ghost.coffee.ColorPrinter.ANSI_COLOR;
+import ghost.coffee.ColorPrinter.ColorPrinter;
+import static ghost.coffee.ColorPrinter.ANSI_COLOR.*;
+
 public class TestPrinter {
     public static void main(String[] args) {
         ColorPrinter debug = new ColorPrinter();
 
         ColorPrinter.clearConsole();
 
+        System.out.println(ANSI_COLOR.BLUE);
         debug.negative(true);
         debug.bold(true);
         debug.blink(true);
-        debug.setTextColor(ANSI_COLOR.BLUE);
-        debug.setBackgroundColor(ANSI_COLOR.RED);
+        debug.setTextColor(BLUE);
+        debug.setBackgroundColor(RED);
 
         debug.printf("This is a %s. I have %.8f tests to run.\n", "Test", 19999f);
 

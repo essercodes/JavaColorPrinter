@@ -1,19 +1,25 @@
-run: compile
-	java -cp out/production/ColorPrinter TestPrinter
+default: jar
+jar: compile
+	jar cmf MANIFEST.MF colorprinter.jar \
+		-C out/production/ColorPrinter/ ghost/coffee/ColorPrinter/ColorPrinter.class \
+		-C out/production/ColorPrinter/ ghost/coffee/ColorPrinter/ANSI_COLOR.class \
+		-C out/production/ColorPrinter/ ghost/coffee/ColorPrinter/'ColorPrinter$$1.class'
 
-compile: ColorPrinter.class TestPrinter.class
+compile: ColorPrinter.class
 
 clean:
+	$(RM) colorprinter.jar
 	$(RM) *.class
-	$(RM) out/production/ColorPrinter/*.class
+	$(RM) out/production/ColorPrinter/ghost/coffee/ColorPrinter/*.class
 
-ColorPrinter.class: src/ColorPrinter.java ANSI_COLOR.class
-	javac -cp src src/ColorPrinter.java -d out/production/ColorPrinter/
-
-ANSI_COLOR.class: src/ANSI_COLOR.java
-	javac -cp src src/ANSI_COLOR.java -d out/production/ColorPrinter/
-
-TestPrinter.class: src/TestPrinter.java ColorPrinter.class
+ColorPrinter.class: src/ghost/coffee/ColorPrinter/ColorPrinter.java ANSI_COLOR.class
 	javac -cp src \
-		  src/TestPrinter.java \
- 	  	  -d out/production/ColorPrinter/
+		  src/ghost/coffee/ColorPrinter/ColorPrinter.java \
+		  -d out/production/ColorPrinter/
+
+
+ANSI_COLOR.class: src/ghost/coffee/ColorPrinter/ANSI_COLOR.java
+	javac -cp src \
+ 		  src/ghost/coffee/ColorPrinter/ANSI_COLOR.java \
+ 		  -d out/production/ColorPrinter/
+
