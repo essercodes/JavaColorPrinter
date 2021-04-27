@@ -1,4 +1,4 @@
-default: run
+efault: run
 
 run: compile
 	java -cp out/production/TestColorPrinter:colorprinter.jar TestPrinter
