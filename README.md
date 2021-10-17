@@ -2,13 +2,14 @@
 
 Add `colorprinter.jar` to your class path to print the Java stdout with formatting and color.
 
+
 ## How to use
 
 ```java
 import ghost.coffee.ColorPrinter.ColorPrinter;
 import static ghost.coffee.ColorPrinter.ANSI_COLOR.*;
 
-public class JarTest {
+public class Example {
     public static void main(String[] args) {
 
         // Print formatted text
@@ -32,6 +33,7 @@ public class JarTest {
     }
 }
 ```
+
 
 ## Creating the Jar
 
