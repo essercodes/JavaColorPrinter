@@ -11,32 +11,7 @@ import java.io.IOException;
  * @see "https://stackoverflow.com/a/5762502"
  */
 public final class ColorPrinter {
-    private final String ANSI_RESET     = "\033[0m"; //same as "\u001b[0m" and \u001B[0m"
-    private final String ANSI_BLACK     = "\033[30m";
-    private final String ANSI_RED       = "\033[31m";
-    private final String ANSI_GREEN     = "\033[32m";
-    private final String ANSI_YELLOW    = "\033[33m";
-    private final String ANSI_BLUE      = "\033[34m";
-    private final String ANSI_PURPLE    = "\033[35m";
-    private final String ANSI_CYAN      = "\033[36m";
-    private final String ANSI_WHITE     = "\033[37m";
-    private final String ANSI_BG_BLACK  = "\033[40m";
-    private final String ANSI_BG_RED    = "\033[41m";
-    private final String ANSI_BG_GREEN  = "\033[42m";
-    private final String ANSI_BG_YELLOW = "\033[43m";
-    private final String ANSI_BG_BLUE   = "\033[44m";
-    private final String ANSI_BG_PURPLE = "\033[45m";
-    private final String ANSI_BG_CYAN   = "\033[46m";
-    private final String ANSI_BG_WHITE  = "\033[47m";
-
-    private final String ANSI_BOLD      = "\033[1m";
-    private final String ANSI_ITALICS   = "\033[3m";
-    private final String ANSI_UNDERLINE = "\033[4m";
-    private final String ANSI_BLINK     = "\033[5m";
-    private final String ANSI_NEGATIVE  = "\033[7m";
-    private final String ANSI_STRIKE    = "\033[9m";
-    private final String ANSI_FRAMED    = "\033[51m";
-    private final String ANSI_OVERLINED = "\033[53m";
+    private final String ANSI_RESET = "\033[0m"; //same as "\u001b[0m" and \u001B[0m"
 
     private boolean enabled;
     private String  textColor;
@@ -122,7 +97,7 @@ public final class ColorPrinter {
 
     /**
      * This private method is a switch that takes the color enum and return text color ANSI code.
-     * @param color is a the 8 bit text color desired.
+     * @param color is the 8-bit color desired.
      * @param background has the method return the corresponding ANSI code for background text color
      *                  if true.
      * @return the ANSI text color code as a String.
@@ -132,29 +107,29 @@ public final class ColorPrinter {
         //noinspection EnhancedSwitchMigration
         switch (color) {
             case RED:
-                if (background) return ANSI_BG_RED;
-                return ANSI_RED;
+                if (background) return "\033[41m";  // ANSI Background Red
+                return "\033[31m";                  // ANSI Red
             case GREEN:
-                if (background) return ANSI_BG_GREEN;
-                return ANSI_GREEN;
+                if (background) return "\033[42m";  // ANSI Background Green
+                return "\033[32m";                  // ANSI Green
             case YELLOW:
-                if (background) return ANSI_BG_YELLOW;
-                return ANSI_YELLOW;
+                if (background) return "\033[43m";  // ANSI Background Yellow
+                return "\033[33m";                  // ANSI Yellow
             case BLUE:
-                if (background) return ANSI_BG_BLUE;
-                return ANSI_BLUE;
+                if (background) return "\033[44m";  // ANSI Background Blue
+                return "\033[34m";                  // ANSI Blue
             case PURPLE:
-                if (background) return ANSI_BG_PURPLE;
-                return ANSI_PURPLE;
+                if (background) return "\033[45m";  // ANSI Background Purple
+                return "\033[35m";                  // ANSI Purple
             case CYAN:
-                if (background) return ANSI_BG_CYAN;
-                return ANSI_CYAN;
+                if (background) return "\033[46m";  // ANSI Background Cyan
+                return "\033[36m";                  // ANSI Cyan
             case WHITE:
-                if (background) return ANSI_BG_WHITE;
-                return ANSI_WHITE;
+                if (background) return "\033[47m";  // ANSI Background White
+                return "\033[37m";                  // ANSI White
             case BLACK:
-                if (background) return ANSI_BG_BLACK;
-                return ANSI_BLACK;
+                if (background) return "\033[40m";  // ANSI Background Black
+                return "\033[30m";                  // ANSI Black
             default:
                 throw new IllegalArgumentException(color + " is not a valid color");
         }
@@ -190,7 +165,7 @@ public final class ColorPrinter {
      */
     public void underline(boolean enable) {
         if (enable) {
-            this.underline = ANSI_UNDERLINE;
+            this.underline = "\033[4m";  // ANSI Underline
         } else
             this.underline = "";
     }
@@ -201,7 +176,7 @@ public final class ColorPrinter {
      */
     public void bold(boolean enable) {
         if (enable) {
-            this.bold = ANSI_BOLD;
+            this.bold = "\033[1m";  // ANSI Bold
         } else {
             this.bold = "";
         }
@@ -213,7 +188,7 @@ public final class ColorPrinter {
      */
     public void italics(boolean enable) {
         if (enable) {
-            this.italics = ANSI_ITALICS;
+            this.italics = "\033[3m";  // ANSI italics
         } else {
             this.italics = "";
         }
@@ -225,7 +200,7 @@ public final class ColorPrinter {
      */
     public void blink(boolean enable) {
         if (enable) {
-            this.blink = ANSI_BLINK;
+            this.blink = "\033[5m";  // ANSI Blink
         } else {
             this.blink = "";
         }
@@ -237,7 +212,7 @@ public final class ColorPrinter {
      */
     public void negative(boolean enable) {
         if (enable) {
-            this.negative = ANSI_NEGATIVE;
+            this.negative = "\033[7m";  // ANSI Reverse Video
         } else {
             this.negative = "";
         }
@@ -249,7 +224,7 @@ public final class ColorPrinter {
      */
     public void strike(boolean enable) {
         if (enable) {
-            this.strike = ANSI_STRIKE;
+            this.strike = "\033[9m";  // ANSI Strike
         } else {
             this.strike = "";
         }
@@ -262,7 +237,7 @@ public final class ColorPrinter {
      */
     public void framed(boolean enable) {
         if (enable) {
-            this.framed = ANSI_FRAMED;
+            this.framed = "\033[51m";  // ANSI Framed
         } else {
             this.framed = "";
         }
@@ -275,7 +250,7 @@ public final class ColorPrinter {
      */
     public void overline(boolean enable) {
         if (enable) {
-            this.overline = ANSI_OVERLINED;
+            this.overline = "\033[53m";  // ANSI Overline
         } else {
             this.overline = "";
         }
