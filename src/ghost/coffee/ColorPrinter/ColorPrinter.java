@@ -1,5 +1,7 @@
 package ghost.coffee.ColorPrinter;
 
+import java.io.IOException;
+
 /**
  * ColorPrinter is a class that formats output with things like bold, italics, underline, color,
  * and background color.
@@ -9,44 +11,44 @@ package ghost.coffee.ColorPrinter;
  * @see "https://stackoverflow.com/a/5762502"
  */
 public final class ColorPrinter {
-    private final String ANSI_RESET = "\033[0m"; //same as "\u001b[0m" and \u001B[0m"
-    private final String ANSI_BLACK = "\033[30m";
-    private final String ANSI_RED = "\033[31m";
-    private final String ANSI_GREEN = "\033[32m";
-    private final String ANSI_YELLOW = "\033[33m";
-    private final String ANSI_BLUE = "\033[34m";
-    private final String ANSI_PURPLE = "\033[35m";
-    private final String ANSI_CYAN = "\033[36m";
-    private final String ANSI_WHITE = "\033[37m";
-    private final String ANSI_BG_BLACK = "\033[40m";
-    private final String ANSI_BG_RED = "\033[41m";
-    private final String ANSI_BG_GREEN = "\033[42m";
+    private final String ANSI_RESET     = "\033[0m"; //same as "\u001b[0m" and \u001B[0m"
+    private final String ANSI_BLACK     = "\033[30m";
+    private final String ANSI_RED       = "\033[31m";
+    private final String ANSI_GREEN     = "\033[32m";
+    private final String ANSI_YELLOW    = "\033[33m";
+    private final String ANSI_BLUE      = "\033[34m";
+    private final String ANSI_PURPLE    = "\033[35m";
+    private final String ANSI_CYAN      = "\033[36m";
+    private final String ANSI_WHITE     = "\033[37m";
+    private final String ANSI_BG_BLACK  = "\033[40m";
+    private final String ANSI_BG_RED    = "\033[41m";
+    private final String ANSI_BG_GREEN  = "\033[42m";
     private final String ANSI_BG_YELLOW = "\033[43m";
-    private final String ANSI_BG_BLUE = "\033[44m";
+    private final String ANSI_BG_BLUE   = "\033[44m";
     private final String ANSI_BG_PURPLE = "\033[45m";
-    private final String ANSI_BG_CYAN = "\033[46m";
-    private final String ANSI_BG_WHITE = "\033[47m";
+    private final String ANSI_BG_CYAN   = "\033[46m";
+    private final String ANSI_BG_WHITE  = "\033[47m";
 
-    private final String ANSI_BOLD = "\033[1m";
-    private final String ANSI_ITALICS = "\033[3m";
+    private final String ANSI_BOLD      = "\033[1m";
+    private final String ANSI_ITALICS   = "\033[3m";
     private final String ANSI_UNDERLINE = "\033[4m";
-    private final String ANSI_BLINK = "\033[5m";
-    private final String ANSI_NEGATIVE = "\033[7m";
-    private final String ANSI_STRIKE = "\033[9m";
-    private final String ANSI_FRAMED = "\033[51m";
+    private final String ANSI_BLINK     = "\033[5m";
+    private final String ANSI_NEGATIVE  = "\033[7m";
+    private final String ANSI_STRIKE    = "\033[9m";
+    private final String ANSI_FRAMED    = "\033[51m";
     private final String ANSI_OVERLINED = "\033[53m";
 
     private boolean enabled;
-    private String textColor;
-    private String backgroundColor;
-    private String bold;
-    private String italics;
-    private String underline;
-    private String blink;
-    private String negative;
-    private String strike;
-    private String framed;
-    private String overline;
+    private String  textColor;
+    private String  backgroundColor;
+    private String  bold;
+    private String  italics;
+    private String  underline;
+    private String  blink;
+    private String  negative;
+    private String  strike;
+    private String  framed;
+    private String  overline;
 
     public ColorPrinter() {
         enabled = true;
@@ -63,6 +65,25 @@ public final class ColorPrinter {
 
     }
 
+    /**
+     * clearConsole clears console all output if the terminal emulator supports it.
+     * @see "http://techno-terminal.blogspot.com/2014/12/clear-command-line-console-and-bold.html"
+     */
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    /**
+     * when called the program will wait for the user to press enter before continuing.
+     */
+    public static void waitForEnterKey() {
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * enable the printer object. This is the default.
@@ -90,6 +111,35 @@ public final class ColorPrinter {
     }
 
     /**
+     * This private method is a switch that takes the color enum and return text color ANSI code.
+     * @param color is a the 8 bit text color desired.
+     * @return the ANSI text color code as a String.
+     */
+    private String colorSwitch(ANSI_COLOR color) {
+        if (color == null) throw new IllegalArgumentException("null is not a color!");
+        switch (color) {
+            case RED:
+                return ANSI_RED;
+            case GREEN:
+                return ANSI_GREEN;
+            case YELLOW:
+                return ANSI_YELLOW;
+            case BLUE:
+                return ANSI_BLUE;
+            case PURPLE:
+                return ANSI_PURPLE;
+            case CYAN:
+                return ANSI_CYAN;
+            case WHITE:
+                return ANSI_WHITE;
+            case BLACK:
+                return ANSI_BLACK;
+            default:
+                throw new IllegalArgumentException(color + " is not a valid color");
+        }
+    }
+
+    /**
      * removeTextColor resets the text color to the default.
      */
     public void removeTextColor() {
@@ -103,6 +153,36 @@ public final class ColorPrinter {
      */
     public void setBackgroundColor(ANSI_COLOR backgroundColor) {
         this.backgroundColor = backgroundColorSwitch(backgroundColor);
+    }
+
+    /**
+     * This private method is a switch that takes the color enum and returns the background color
+     * ANSI code.
+     * @param background is the 8 bit background color desired.
+     * @return the ANSI background color code as a String.
+     */
+    private String backgroundColorSwitch(ANSI_COLOR background) {
+        if (background == null) throw new IllegalArgumentException("null is not a color!");
+        switch (background) {
+            case RED:
+                return ANSI_BG_RED;
+            case GREEN:
+                return ANSI_BG_GREEN;
+            case YELLOW:
+                return ANSI_BG_YELLOW;
+            case BLUE:
+                return ANSI_BG_BLUE;
+            case PURPLE:
+                return ANSI_BG_PURPLE;
+            case CYAN:
+                return ANSI_BG_CYAN;
+            case WHITE:
+                return ANSI_BG_WHITE;
+            case BLACK:
+                return ANSI_BG_BLACK;
+            default:
+                throw new IllegalArgumentException(background + " is not a valid color");
+        }
     }
 
     /**
@@ -211,77 +291,12 @@ public final class ColorPrinter {
     }
 
     /**
-     * This private method is a switch that takes the color enum and return text color ANSI code.
-     * @param color is a the 8 bit text color desired.
-     * @return the ANSI text color code as a String.
-     */
-    private String colorSwitch(ANSI_COLOR color) {
-        if (color == null) throw new IllegalArgumentException("null is not a color!");
-        return switch (color) {
-            case RED -> ANSI_RED;
-            case GREEN -> ANSI_GREEN;
-            case YELLOW -> ANSI_YELLOW;
-            case BLUE -> ANSI_BLUE;
-            case PURPLE -> ANSI_PURPLE;
-            case CYAN -> ANSI_CYAN;
-            case WHITE -> ANSI_WHITE;
-            case BLACK -> ANSI_BLACK;
-        };
-    }
-
-    /**
-     * This private method is a switch that takes the color enum and returns the background color
-     * ANSI code.
-     * @param background is the 8 bit background color desired.
-     * @return the ANSI background color code as a String.
-     */
-    private String backgroundColorSwitch(ANSI_COLOR background) {
-        if (background == null) throw new IllegalArgumentException("null is not a color!");
-        return switch (background) {
-            case RED -> ANSI_BG_RED;
-            case GREEN -> ANSI_BG_GREEN;
-            case YELLOW -> ANSI_BG_YELLOW;
-            case BLUE -> ANSI_BG_BLUE;
-            case PURPLE -> ANSI_BG_PURPLE;
-            case CYAN -> ANSI_BG_CYAN;
-            case WHITE -> ANSI_BG_WHITE;
-            case BLACK -> ANSI_BG_BLACK;
-        };
-    }
-
-    //
-
-    /**
-     * clearConsole clears console all output if the terminal emulator supports it.
-     * @see "http://techno-terminal.blogspot.com/2014/12/clear-command-line-console-and-bold.html"
-     */
-    public static void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    /**
      * Prints output with enabled color and text formatting.
      * @param output is the String to be printed.
      */
     public void println(String output) {
         if (enabled)
-            System.out.println(this.bold
-                               + this.underline
-                               + this.textColor
-                               + this.backgroundColor
-                               + this.textColor
-                               + this.backgroundColor
-                               + this.bold
-                               + this.italics
-                               + this.underline
-                               + this.blink
-                               + this.negative
-                               + this.strike
-                               + this.framed
-                               + this.overline
-                               + output
-                               + ANSI_RESET);
+            this.print(output + "\n");
     }
 
     /**
@@ -290,22 +305,168 @@ public final class ColorPrinter {
      */
     public void print(String output) {
         if (enabled)
-            System.out.print(this.bold
-                             + this.underline
-                             + this.textColor
-                             + this.backgroundColor
-                             + this.textColor
-                             + this.backgroundColor
-                             + this.bold
-                             + this.italics
-                             + this.underline
-                             + this.blink
-                             + this.negative
-                             + this.strike
-                             + this.overline
-                             + this.framed
-                             + output
-                             + ANSI_RESET);
+            System.out.print(
+                    this.bold
+                    + this.underline
+                    + this.textColor
+                    + this.backgroundColor
+                    + this.textColor
+                    + this.backgroundColor
+                    + this.bold
+                    + this.italics
+                    + this.underline
+                    + this.blink
+                    + this.negative
+                    + this.strike
+                    + this.overline
+                    + this.framed
+                    + output
+                    + ANSI_RESET
+                            );
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the byte to be printed.
+     */
+    public void println(byte output) { //
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the short to be printed.
+     */
+    public void println(short output) {
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the int to be printed.
+     */
+    public void println(int output) {
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the long to be printed.
+     */
+    public void println(long output) {
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the float to be printed.
+     */
+    public void println(float output) {
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the double to be printed.
+     */
+    public void println(double output) {
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the char to be printed.
+     */
+    public void println(char output) {
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the boolean to be printed.
+     */
+    public void println(boolean output) {
+        if (enabled)
+            this.println(output);
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the byte to be printed.
+     */
+    public void print(byte output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the short to be printed.
+     */
+    public void print(short output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the int to be printed.
+     */
+    public void print(int output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the long to be printed.
+     */
+    public void print(long output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the float to be printed.
+     */
+    public void print(float output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the double to be printed.
+     */
+    public void print(double output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the char to be printed.
+     */
+    public void print(char output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the boolean to be printed.
+     */
+    public void print(boolean output) {
+        if (enabled)
+            this.print(String.valueOf(output));
     }
 
     /**
