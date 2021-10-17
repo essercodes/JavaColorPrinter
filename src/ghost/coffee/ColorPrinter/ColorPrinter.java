@@ -6,7 +6,7 @@ import java.io.IOException;
  * ColorPrinter is a class that formats output with things like bold, italics, underline, color,
  * and background color.
  *
- * @author Max Esser messer4@wisc.edu
+ * @author Max Esser max@ghost.coffee
  * @see "https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters"
  * @see "https://stackoverflow.com/a/5762502"
  */
