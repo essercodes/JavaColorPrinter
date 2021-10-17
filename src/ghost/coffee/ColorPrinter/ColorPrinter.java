@@ -79,6 +79,7 @@ public final class ColorPrinter {
      */
     public static void waitForEnterKey() {
         try {
+            //noinspection ResultOfMethodCallIgnored
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,23 +117,43 @@ public final class ColorPrinter {
      * @return the ANSI text color code as a String.
      */
     private String colorSwitch(ANSI_COLOR color) {
+        return this.colorSwitch(color, false);
+    }
+
+    /**
+     * This private method is a switch that takes the color enum and return text color ANSI code.
+     * @param color is a the 8 bit text color desired.
+     * @param background has the method return the corresponding ANSI code for background text color
+     *                  if true.
+     * @return the ANSI text color code as a String.
+     */
+    private String colorSwitch(ANSI_COLOR color, boolean background) {
         if (color == null) throw new IllegalArgumentException("null is not a color!");
+        //noinspection EnhancedSwitchMigration
         switch (color) {
             case RED:
+                if (background) return ANSI_BG_RED;
                 return ANSI_RED;
             case GREEN:
+                if (background) return ANSI_BG_GREEN;
                 return ANSI_GREEN;
             case YELLOW:
+                if (background) return ANSI_BG_YELLOW;
                 return ANSI_YELLOW;
             case BLUE:
+                if (background) return ANSI_BG_BLUE;
                 return ANSI_BLUE;
             case PURPLE:
+                if (background) return ANSI_BG_PURPLE;
                 return ANSI_PURPLE;
             case CYAN:
+                if (background) return ANSI_BG_CYAN;
                 return ANSI_CYAN;
             case WHITE:
+                if (background) return ANSI_BG_WHITE;
                 return ANSI_WHITE;
             case BLACK:
+                if (background) return ANSI_BG_BLACK;
                 return ANSI_BLACK;
             default:
                 throw new IllegalArgumentException(color + " is not a valid color");
@@ -152,37 +173,7 @@ public final class ColorPrinter {
      *                        BLACK, RED, GREEN, YELLOW, BLUE, CYAN, and WHITE.
      */
     public void setBackgroundColor(ANSI_COLOR backgroundColor) {
-        this.backgroundColor = backgroundColorSwitch(backgroundColor);
-    }
-
-    /**
-     * This private method is a switch that takes the color enum and returns the background color
-     * ANSI code.
-     * @param background is the 8 bit background color desired.
-     * @return the ANSI background color code as a String.
-     */
-    private String backgroundColorSwitch(ANSI_COLOR background) {
-        if (background == null) throw new IllegalArgumentException("null is not a color!");
-        switch (background) {
-            case RED:
-                return ANSI_BG_RED;
-            case GREEN:
-                return ANSI_BG_GREEN;
-            case YELLOW:
-                return ANSI_BG_YELLOW;
-            case BLUE:
-                return ANSI_BG_BLUE;
-            case PURPLE:
-                return ANSI_BG_PURPLE;
-            case CYAN:
-                return ANSI_BG_CYAN;
-            case WHITE:
-                return ANSI_BG_WHITE;
-            case BLACK:
-                return ANSI_BG_BLACK;
-            default:
-                throw new IllegalArgumentException(background + " is not a valid color");
-        }
+        this.backgroundColor = colorSwitch(backgroundColor, true);
     }
 
     /**
