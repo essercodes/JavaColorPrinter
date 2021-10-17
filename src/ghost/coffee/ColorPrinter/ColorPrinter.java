@@ -292,11 +292,11 @@ public final class ColorPrinter {
 
     /**
      * Prints output with enabled color and text formatting.
-     * @param output is the String to be printed.
+     * @param output is the byte to be printed.
      */
-    public void println(String output) {
+    public void print(byte output) {
         if (enabled)
-            this.print(output + "\n");
+            this.print(String.valueOf(output));
     }
 
     /**
@@ -306,23 +306,87 @@ public final class ColorPrinter {
     public void print(String output) {
         if (enabled)
             System.out.print(
-                    this.bold
-                    + this.underline
-                    + this.textColor
-                    + this.backgroundColor
-                    + this.textColor
-                    + this.backgroundColor
-                    + this.bold
-                    + this.italics
-                    + this.underline
-                    + this.blink
-                    + this.negative
-                    + this.strike
-                    + this.overline
-                    + this.framed
+                    ansiCodes()
                     + output
-                    + ANSI_RESET
-                            );
+                    + ANSI_RESET);
+    }
+
+    private String ansiCodes() {
+        return this.bold + this.underline + this.textColor + this.backgroundColor + this.textColor
+               + this.backgroundColor + this.bold + this.italics + this.underline + this.blink
+               + this.negative + this.strike + this.overline + this.framed;
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the short to be printed.
+     */
+    public void print(short output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the int to be printed.
+     */
+    public void print(int output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the long to be printed.
+     */
+    public void print(long output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the float to be printed.
+     */
+    public void print(float output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the double to be printed.
+     */
+    public void print(double output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the char to be printed.
+     */
+    public void print(char output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the boolean to be printed.
+     */
+    public void print(boolean output) {
+        if (enabled)
+            this.print(String.valueOf(output));
+    }
+
+    /**
+     * Prints output with enabled color and text formatting.
+     * @param output is the String to be printed.
+     */
+    public void println(String output) {
+        if (enabled)
+            this.print(output + "\n");
     }
 
     /**
@@ -398,97 +462,12 @@ public final class ColorPrinter {
     }
 
     /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the byte to be printed.
-     */
-    public void print(byte output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the short to be printed.
-     */
-    public void print(short output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the int to be printed.
-     */
-    public void print(int output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the long to be printed.
-     */
-    public void print(long output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the float to be printed.
-     */
-    public void print(float output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the double to be printed.
-     */
-    public void print(double output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the char to be printed.
-     */
-    public void print(char output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
-     * Prints output with enabled color and text formatting.
-     * @param output is the boolean to be printed.
-     */
-    public void print(boolean output) {
-        if (enabled)
-            this.print(String.valueOf(output));
-    }
-
-    /**
      * Prints output with formatting from this object, and System.out.printf formatting.
      * @param format text with printf placeholder parameters
      * @param args printf values to be filled.
      */
     public void printf(String format, Object... args) {
-        System.out.printf(this.bold
-                          + this.underline
-                          + this.textColor
-                          + this.backgroundColor
-                          + this.textColor
-                          + this.backgroundColor
-                          + this.bold
-                          + this.italics
-                          + this.underline
-                          + this.blink
-                          + this.negative
-                          + this.strike
-                          + this.overline
-                          + this.framed
+        System.out.printf(ansiCodes()
                           + format
                           + ANSI_RESET
                 , args);
