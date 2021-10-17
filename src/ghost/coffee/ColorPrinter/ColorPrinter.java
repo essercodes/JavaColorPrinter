@@ -302,6 +302,10 @@ public final class ColorPrinter {
                     + ANSI_RESET);
     }
 
+    /**
+     * Private method that returns all the enabled ANSI codes.
+     * @return a concatenated string of all the ansi codes.
+     */
     private String ansiCodes() {
         return this.bold + this.underline + this.textColor + this.backgroundColor + this.textColor
                + this.backgroundColor + this.bold + this.italics + this.underline + this.blink
